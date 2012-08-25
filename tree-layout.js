@@ -19,6 +19,8 @@ TreeBuilder = (function() {
 
     this.makeNode = __bind(this.makeNode, this);
 
+    this.setNodeColor = __bind(this.setNodeColor, this);
+
     this.setRadius = __bind(this.setRadius, this);
 
     this.setSize = __bind(this.setSize, this);
@@ -31,6 +33,7 @@ TreeBuilder = (function() {
     this.sizeX = 30;
     this.sizeY = 40;
     this.radius = 10;
+    this.nodeColor = '#F00';
     this.node = {};
     this.traverse = {};
     this.traverse['PreOrder'] = function(v, y) {
@@ -115,6 +118,15 @@ TreeBuilder = (function() {
   };
 
   /*
+      * ノードの色を指定する
+  */
+
+
+  TreeBuilder.prototype.setNodeColor = function(nodeColor) {
+    this.nodeColor = nodeColor;
+  };
+
+  /*
       * ノードを作成する
   */
 
@@ -150,7 +162,7 @@ TreeBuilder = (function() {
   };
 
   /*
-      * 木を配置するための
+      * 木を配置する
       * @param {string} mode：配置モード
       *   'PreOrder'：行きがけ順で配置する
       *   'OutOrder'：帰りがけ順で配置する
@@ -187,6 +199,11 @@ TreeBuilder = (function() {
     return t.attr('fill', '#000');
   };
 
+  /*
+      * エッジを描画する
+  */
+
+
   TreeBuilder.prototype.drawEdge = function(v) {
     var fx, fy, label, p, param, tx, ty, u, _i, _len, _ref, _ref1, _results;
     _ref = this.node[v].edge;
@@ -205,12 +222,17 @@ TreeBuilder = (function() {
     return _results;
   };
 
+  /*
+      * ノードを描画する
+  */
+
+
   TreeBuilder.prototype.drawNode = function(v) {
     var c, label, u, x, y, _i, _len, _ref, _ref1, _results;
     x = this.xAxis[v] * this.sizeX + this.offsetX;
     y = this.yAxis[v] * this.sizeY + this.offsetY;
     c = this.paper.circle(x, y, this.radius);
-    c.attr('fill', '#F00');
+    c.attr('fill', this.nodeColor);
     this.drawLabel(this.node[v].label, x, y);
     _ref = this.node[v].edge;
     _results = [];
@@ -222,7 +244,7 @@ TreeBuilder = (function() {
   };
 
   /*
-       * 木を描画するための
+       * 木を描画する
        * @param {string} id：木を描画するコンテナID
        * @param {number} root：木の根のノード番号
        * @param {number} width：描画領域の幅

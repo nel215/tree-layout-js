@@ -13,6 +13,7 @@ window.onload = function(){
     tb.setSize(50,50);
     tb.draw('sample2',0);
     tb.setOffset(50,50);
+    tb.setNodeColor("#0F0");
     tb.layout('InOrder',0);
     tb.draw('sample3',0);
 };

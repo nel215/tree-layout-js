@@ -5,6 +5,7 @@ class TreeBuilder
         @sizeX = 30
         @sizeY = 40
         @radius = 10
+        @nodeColor = '#F00'
         @node = {}
         @traverse = {}
         @traverse['PreOrder'] = (v,y=0)=>
@@ -47,6 +48,11 @@ class TreeBuilder
     setRadius: (@radius)=>
     
     ###
+    * ノードの色を指定する
+    ###
+    setNodeColor: (@nodeColor)=>
+    
+    ###
     * ノードを作成する
     ###
     makeNode: (v,label='')=>
@@ -66,8 +72,7 @@ class TreeBuilder
         if not @node[to]?
             @makeNode to
         @node[from].edge.push [label,to]
-    
-    
+
     ###
     * 木を配置する
     * @param {string} mode：配置モード
@@ -97,6 +102,9 @@ class TreeBuilder
         t = @paper.text x,y-1,label
         t.attr 'fill','#000'   
     
+    ###
+    * エッジを描画する
+    ###
     drawEdge: (v)=>
         for [label,u] in @node[v].edge
             fx = @xAxis[v]*@sizeX+@offsetX
@@ -107,12 +115,15 @@ class TreeBuilder
             p = @paper.path param
             @drawLabel label,(fx+tx)/2,(fy+ty)/2
             @drawEdge u
-            
+
+    ###
+    * ノードを描画する
+    ###
     drawNode: (v)=>
         x = @xAxis[v]*@sizeX+@offsetX
         y = @yAxis[v]*@sizeY+@offsetY
         c = @paper.circle x,y,@radius
-        c.attr 'fill','#F00'
+        c.attr 'fill',@nodeColor
         @drawLabel @node[v].label,x,y
         for [label,u] in @node[v].edge
             @drawNode u
