@@ -31,7 +31,15 @@ class TreeBuilder
             for i in [(parseInt l/2)...l]
                 [label,u] = @node[v].edge[i]
                 @traverse['InOrder'] u,y+1
-                
+    
+    ###
+    * ノードのラベルを設定する
+    ###
+    setNodeLabel: (v,label)=>
+        if @node[v]?
+            @node[v].label = label
+         
+         
     ###
     * オフセットを設定する
     ###

@@ -27,6 +27,8 @@ TreeBuilder = (function() {
 
     this.setOffset = __bind(this.setOffset, this);
 
+    this.setNodeLabel = __bind(this.setNodeLabel, this);
+
     var _this = this;
     this.offsetX = 20;
     this.offsetY = 20;
@@ -87,6 +89,17 @@ TreeBuilder = (function() {
       return _results;
     };
   }
+
+  /*
+      * ノードのラベルを設定する
+  */
+
+
+  TreeBuilder.prototype.setNodeLabel = function(v, label) {
+    if (this.node[v] != null) {
+      return this.node[v].label = label;
+    }
+  };
 
   /*
       * オフセットを設定する
